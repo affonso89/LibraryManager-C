@@ -64,6 +64,7 @@ int displayBooks(){
   
   while(!feof(fp)){
     fgets(line, 70, fp);
+    strcpy(line, strtok(line, "\n"));
     puts(line);
   }
   
@@ -299,6 +300,8 @@ int delBook(){
   int number, bookNumber;
   struct book tempBook;
   
+  char s;
+  
   FILE *fp = NULL;
   FILE *ft = NULL;
   
@@ -326,6 +329,8 @@ int delBook(){
     // DELETE algorithm
     if(number < bookNumber){
       fprintf(ft, "%s", line);
+      // There's a bug here. If you try to delete the last book it generates
+      // a new line in the file and messes up the display option
     } else if(number > bookNumber && number <= (numberGen() - 1)){
       fprintf(ft, "%02d", number - 1);
       fprintf(ft, "%s", pline);
